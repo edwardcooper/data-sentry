@@ -2,3 +2,6 @@
 *.bin
 *.npy
 *.txt
+enwik9
+.ipynb_checkpoints/
+Untitled.ipynb
