@@ -40,7 +40,9 @@ jedi==0.13.1
 Jinja2==2.10
 jmespath==0.9.3
 jsonschema==3.0.0a3
+jupyter==1.0.0
 jupyter-client==5.2.3
+jupyter-console==6.0.0
 jupyter-contrib-core==0.3.3
 jupyter-contrib-nbextensions==0.5.0
 jupyter-core==4.4.0
@@ -50,6 +52,7 @@ jupyter-nbextensions-configurator==0.4.0
 jupyterhub==0.9.4
 jupyterlab==0.35.4
 jupyterlab-server==0.2.0
+jupyternotify==0.1.15
 kiwisolver==1.0.1
 lifelines==0.15.1
 llvmlite==0.23.0
@@ -95,6 +98,7 @@ pytz==2018.7
 PyWavelets==1.0.1
 PyYAML==3.13
 pyzmq==17.1.2
+qtconsole==4.4.3
 requests==2.20.1
 rpy2==2.8.5
 ruamel-yaml==0.15.71
