@@ -1,5 +1,5 @@
 # for command line usage
-import sys
+import sys, getopt
 
 
 # for creating fake values
@@ -264,32 +264,52 @@ class Fake_PII():
         return self.pii_labels, self.pii_with_text, self.PII
         
 
-if __name__ == "__main__":
-    assert len(sys.argv) == 3, "Please enter TWO integers for training and testing data size."
-    requested_train_data_size = int(sys.argv[1])
-    requested_test_data_size = int(sys.argv[2])
-    assert isinstance(requested_train_data_size, int) and \
-    isinstance(requested_test_data_size, int), "Please enter two INTEGERS for the number of text."
+        
+def write_to_disk_train(requested_train_data_size):
     
     fake_ = Fake_PII()
     fake_.create_fake_profile(requested_train_data_size)
     train_labels, train_text, train_PII = fake_.create_pii_text_train(n_text = requested_train_data_size)
-    test_labels, test_text, test_PII = fake_.create_pii_text_test(n_text = requested_test_data_size)
-    
     
     # save training data to disk
     train_text_with_pii = pd.DataFrame({"Text":train_text, "Labels":train_labels, "PII":train_PII})
     train_file_name = "train_text_with_pii_" + convert_datetime_underscore(datetime.now()) + ".csv"
     train_text_with_pii.to_csv(train_file_name,index=False)
 
-
+def write_to_disk_test(requested_test_data_size):
+    fake_ = Fake_PII()
+    fake_.create_fake_profile(requested_test_data_size)
+    test_labels, test_text, test_PII = fake_.create_pii_text_test(n_text = requested_test_data_size)
+    
     # save testing data to disk
-    test_text_with_pii = pd.DataFrame({"Text":test_labels, "Labels":test_text, "PII":test_PII})
+    test_text_with_pii = pd.DataFrame({"Text":test_text, "Labels":test_labels, "PII":test_PII})
     test_file_name = "test_text_with_pii_" + convert_datetime_underscore(datetime.now()) + ".csv"
     test_text_with_pii.to_csv(test_file_name,index=False)
     
     
     
+    
+if __name__ == "__main__":
+    argument_list = sys.argv[1:]
+    
+    if "-train" in argument_list:
+        train_value_index = argument_list.index("-train") + 1
+        requested_train_data_size = int(argument_list[train_value_index])
+        
+        write_to_disk_train(requested_train_data_size)
+        
+    if "-test" in argument_list:
+        test_value_index = argument_list.index("-test") + 1
+        requested_test_data_size = int(argument_list[test_value_index])
+        
+        write_to_disk_test(requested_test_data_size)
+    
+    
+# example command line use
+
+# python FakePII.py -train 1000 -test 100
+# python FakePII.py  -test 100
+# python FakePII.py -train 1000 
        
     
     
