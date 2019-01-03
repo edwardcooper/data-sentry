@@ -29,6 +29,15 @@ def extract_special_char(text):
     return special_list  
 
 
+# 0 denote no pii
+# 1 denote pii exists
+def binary_pii(label):
+    pii_label = 0
+    if label != "None":
+        pii_label = 1
+    return pii_label 
+
+
 if __name__ == "__main__":
     import sys
     assert len(sys.argv)>1, "Please enter a csv file to be cleaned"
@@ -45,6 +54,9 @@ if __name__ == "__main__":
     
     input_data["Cleaned_text"] = input_data["Text"].apply(clean_text)
     print("Finished text cleaning") 
+    input_data["Target"] = input_data['Labels'].apply(binary_pii)
+    print("Convert multi-class labels to binary 1/0 (1 for PII, 0 for no PII).")
+    
     # save to disk 
     input_data.to_csv(output_file_name, index = False)
     print("Saving to disk {}".format(output_file_name))
