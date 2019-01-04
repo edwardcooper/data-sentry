@@ -46,4 +46,29 @@ color_dict = {"Phone_number":"red","SSN":"blue","Address":"black","Name":"yellow
              "Plates":"orange","CreditCardNumber":"purple","None":'pink',"Email":"tan"}
 
 
+def _match_re_and_extract_cv_scores(model,all_cv_keys, regex):
+    match_keys = re.findall(regex," ".join(all_cv_keys))
+    
+    cv_scores = dict()
+    
+    for key in match_keys:
+        cv_scores[key] = model.cv_results_[key]
+    return cv_scores 
 
+
+def extract_sk_cv(model, test = True):
+    """
+    A helper function to extract the training/testing cross validation result
+    """
+    all_cv_keys = model.cv_results_.keys()
+    
+    if test:
+        sk_cv_result =  _match_re_and_extract_cv_scores(model = model,all_cv_keys = all_cv_keys\
+                                                             ,regex = r"split[0-9]+_test_score")
+        return pd.DataFrame(sk_cv_result)
+
+    elif not test:
+        
+        sk_cv_result = _match_re_and_extract_cv_scores(model = model,all_cv_keys = all_cv_keys\
+                                                             ,regex = r"split[0-9]+_train_score")
+        return pd.DataFrame(sk_cv_result)
