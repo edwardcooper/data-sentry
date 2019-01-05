@@ -1,3 +1,5 @@
+# Data cleaning
+# ===========================================================================
 import re
 def clean_text(text):
     # replace  . and a space with only a space, then amke all words lower case.
@@ -22,7 +24,8 @@ class text_clean:
         return X
 
 
-
+# Word embedding training 
+# ===========================================================================
 from tqdm import tqdm
 import numpy as np
 from gensim.models import Word2Vec
@@ -104,6 +107,10 @@ class word_embedding:
         return self
 
     def _embedding_training(self, sentences, update = False):
+        """
+        if update = True, it will update the vocabulary and the model can continue to train.
+        If update = False, the model will rebuild a new vocabulary from scratch using the input data.
+        """
         updated_model_with_vocab = self.model
 
         updated_model_with_vocab.build_vocab(sentences, update = update)
@@ -113,21 +120,13 @@ class word_embedding:
         # update the model with the trained one. 
         self.model = updated_model_with_vocab
         
-    def _pd_to_gensim_format(self, text, tags):
+    def _pd_to_gensim_format(self, text):
         
         # special handling for doc2vec model. 
         if self.algo_name == "doc2vec":
-            if tags is None:
-                documents = [TaggedDocument(sentence.split(" "), [index])\
-                      for index in range(len(text))] 
-                print("Using index for the tags")
-            else:
-                assert len(text) == len(tags), "The y and X input must be of same length."
-                documents = [TaggedDocument(paragraph.iloc[index].split(" "), [tags.iloc[index]])\
-                      for index in range(len(text))]
-                print("Using true tags")
-
-        # for word2vec and fasttext     
+            documents = [TaggedDocument(sentence.split(" "), [index])\
+                          for index, sentence in enumerate(text)] 
+            print("Using index for the tags")    
         else:
             documents = [sentence.split(" ") for sentence in text]
             
@@ -135,13 +134,13 @@ class word_embedding:
         return documents
             
         
-    def fit(self, X, y=None):
+    def fit(self, X):
         """
         The fit method will get use the pre_trained model if the model is assigned to the pre_train option.
         
         If the pre_train is None, then the model will be trained. 
         """
-        gensim_X = self._pd_to_gensim_format(text = X, tags = y)
+        gensim_X = self._pd_to_gensim_format(text = X)
         
         if self.pre_train is not None:
             self.model = self.pre_train
@@ -165,14 +164,15 @@ class word_embedding:
         For fastttext, it is not necessary since it will infer from the character n-grams. The fasttext training
         is much longer than word2vec. 
         """
+        gensim_X = self._pd_to_gensim_format(text = X)
         # update the embedding with new sentences or train the model. 
         if self.re_train_new_sentences:
-            self._embedding_training(X, update = True)
+            self._embedding_training(sentences = gensim_X, update = True)
             print("transforming while training {} model with new data.".format(self.algo_name))
-        if self.algo_name == 'doc2vec':
-            X = [" ".join(words[0]) for words in X ]
+            
+            
         # extract the PII 
-        extracted_pii_list = [_find_part_pii(text, model = self.model)\
+        extracted_pii_list = [_find_part_pii(text = text, model = self.model)\
                     for text in tqdm(X) ]
         
         # convert the extracted pii text into vectors.
