@@ -72,7 +72,7 @@ class word_embedding:
     
     """
     def __init__(self, algo_name = "word2vec", size = 100, min_count = 1, window = 5, workers =1,\
-                 epochs = 5, pre_train = None, dump_file = False,\
+                 epochs = 5, pre_train = None, dump_file = False, continue_train_pre_train = True,
                  re_train_new_sentences = True):
         
         
@@ -84,6 +84,7 @@ class word_embedding:
         self.pre_train = pre_train
         self.dump_file = dump_file 
         self.re_train_new_sentences = re_train_new_sentences
+        self.continue_train_pre_train = continue_train_pre_train
         
         # model options
         self.size = size
@@ -108,6 +109,9 @@ class word_embedding:
 
     def _embedding_training(self, sentences, update = False):
         """
+        This helper functions will build the vocabulary, train the model and update the self.model
+        with the newly trained model.
+        
         if update = True, it will update the vocabulary and the model can continue to train.
         If update = False, the model will rebuild a new vocabulary from scratch using the input data.
         """
@@ -139,16 +143,41 @@ class word_embedding:
         The fit method will get use the pre_trained model if the model is assigned to the pre_train option.
         
         If the pre_train is None, then the model will be trained. 
+        
+        
+        If the pre_train model is not None, then the default is to continue training on the new model. 
+        Unless option continue_train_pre_train is specified as False. The False option will just assign 
+        the pre_train model to self.model
         """
         gensim_X = self._pd_to_gensim_format(text = X)
         
         if self.pre_train is not None:
-            self.model = self.pre_train
+            
+            # update the pre_trained model with new training data
+            if self.continue_train_pre_train:
+                self.model = self.pre_train
+                self._embedding_training(sentences = gensim_X, update = True)
+                print("continue training with the pre_train model.")
+                
+            # no training the pre_trained model. 
+            elif not self.continue_train_pre_train:
+                self.model = self.pre_train
+                print("No training with pre_train model.")
+                
+            
             return self
+        
         else:
             # initialize the model, split the sentence into tokens and train it. 
             self._algo_init()
             self._embedding_training(sentences = gensim_X)
+            print("Building new vocabulary and training the {} model".format(self.algo_name))
+        
+        
+        # dump the model to disk
+        if isinstance(self.dump_file,str):
+            self.model.save(self.dump_file)
+            print("Writing the {} model to disk.".format(self.algo_name))
             
         return self
         
@@ -165,6 +194,7 @@ class word_embedding:
         is much longer than word2vec. 
         """
         gensim_X = self._pd_to_gensim_format(text = X)
+        
         # update the embedding with new sentences or train the model. 
         if self.re_train_new_sentences:
             self._embedding_training(sentences = gensim_X, update = True)
