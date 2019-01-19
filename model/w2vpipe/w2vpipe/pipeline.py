@@ -1,6 +1,9 @@
+
+
 # Data cleaning
 # ===========================================================================
 import re
+import pandas as pd
 def clean_text(text):
     # replace  . and a space with only a space, then amke all words lower case.
     text = text.replace(". "," ").replace(",","").lower()
@@ -15,7 +18,7 @@ class text_clean:
     """
     A class to help with cleaning text data. 
     """
-    def fit(self, X, y):
+    def fit(self, X, y = None):
         return self
     def transform(self, X):
         assert isinstance(X,pd.Series), "The input data should be pandas Series."
@@ -34,7 +37,7 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 from sklearn.externals import joblib
 
-
+from sklearn.base import BaseEstimator
 
 def _find_part_pii(text, model, sep = " "):
     tokenized_text = text.split(sep)
@@ -59,7 +62,7 @@ def _extracted_pii2matrix(pii_list, model):
 
 
 
-class word_embedding:
+class word_embedding(BaseEstimator):
     """
     A class to convert words/docs to vectors by applying any model supported by gensim.  
     
@@ -138,7 +141,7 @@ class word_embedding:
         return documents
             
         
-    def fit(self, X):
+    def fit(self, X, y = None):
         """
         The fit method will get use the pre_trained model if the model is assigned to the pre_train option.
         

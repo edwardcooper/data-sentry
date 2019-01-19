@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: w2vpipe
+Version: 0.0.0.2
+Summary: A small example package
+Home-page: https://github.com/pypa/sampleproject
+Author: Edward Lu
+Author-email: edwardlu@gmail.com
+License: UNKNOWN
+Description: # data-sentry
+        A project to build a machine learning pipeline to detect sensitive data from text data.
+        
+        A short description of the project is presented in [google slides](https://docs.google.com/presentation/d/181960blaOy3A8jPAhRxSpRZdn9v1dx6rcKquD4PMn2o/edit?usp=sharing) here.
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
