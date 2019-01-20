@@ -3,6 +3,9 @@
 *.npy
 *.txt
 enwik9
+*.pkl
+*tar.gz
+*.whl
 .ipynb_checkpoints/
 Untitled.ipynb
 __pycache__/
