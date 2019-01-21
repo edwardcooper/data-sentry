@@ -7,10 +7,19 @@
   <body>
 
     {% extends "template.html" %}
+
+
+    {% block navbar %}
+    <a class="nav-link" href="{{ url_for('home_page')}}">Home</a>
+    <a class="nav-link active" href="{{ url_for('API_page')}}">API documentation</a>
+    <a class="nav-link" href="{{url_for('Login_page')}}">Register/Login</a>
+    {% endblock navbar%}
+
     {% block content %}
 
-    <h1> This is the API page </h1>
-    <p> API content </p>
+     <p>
+       This is the API documentation page.
+     </p>
 
     {% endblock %}
   </body>

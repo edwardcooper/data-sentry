@@ -11,6 +11,10 @@ def home_page():
 def API_page():
     return render_template("API_page.html")
 
+@app.route("/Login")
+def Login_page():
+    return render_template("Login_page.html")
+
 
 
 if __name__ == "__main__":

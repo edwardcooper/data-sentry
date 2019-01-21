@@ -7,10 +7,24 @@
   <body>
 
     {% extends "template.html" %}
-    {% block content %}
 
-    <h1> Flask header </h1>
-    <p> This is test paragraph </p>
+    {% block navbar %}
+    <a class="nav-link active" href="{{ url_for('home_page')}}">Home</a>
+    <a class="nav-link" href="{{ url_for('API_page')}}">API documentation</a>
+    <a class="nav-link" href="{{url_for('Login_page')}}">Register/Login</a>
+    {% endblock navbar%}
+
+
+    {% block content %}
+    <div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-6">
+            <textarea class="form-control" rows="3" placeholder="Enter your text here" required></textarea>
+        </div>
+    </div>
+</div>
+<button type="submit" class="btn btn-primary btn-lg">Search PII</button>
+
 
     {% endblock %}
   </body>

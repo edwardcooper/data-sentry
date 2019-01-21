@@ -10,8 +10,6 @@
 
     <!-- Bootstrap core CSS -->
 <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
       .bd-placeholder-img {
@@ -26,39 +24,39 @@
       }
     </style>
     <!-- Custom styles for this template -->
-
     <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+
   </head>
   <body class="text-center" data-gr-c-s-loaded="true">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="masthead mb-auto">
     <div class="inner">
-      <h3 class="masthead-brand">Cover</h3>
+      <h3 class="masthead-brand">PII Sentry</h3>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="https://getbootstrap.com/docs/4.2/examples/cover/#">Home</a>
-        <a class="nav-link" href="https://getbootstrap.com/docs/4.2/examples/cover/#">Features</a>
-        <a class="nav-link" href="https://getbootstrap.com/docs/4.2/examples/cover/#">Contact</a>
+        {% block navbar%}
+
+        {% endblock navbar%}
       </nav>
     </div>
   </header>
 
   <main role="main" class="inner cover">
-    <h1 class="cover-heading">Cover your page.</h1>
-    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+    
     <p class="lead">
-      <a href="https://getbootstrap.com/docs/4.2/examples/cover/#" class="btn btn-lg btn-secondary">Learn more</a>
+      {% block content %}
+      {% endblock content%}
     </p>
   </main>
 
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-    </div>
-  </footer>
+
+<footer class="mastfoot mt-auto">
+  <div class="inner">
+    <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+  </div>
+</footer>
 </div>
 
-        {% block content %}
-        {% endblock %}
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
