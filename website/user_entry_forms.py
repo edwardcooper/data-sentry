@@ -26,3 +26,11 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
 
     submit = SubmitField("Login")
+
+
+class TextEntry(FlaskForm):
+
+    text = StringField('Enter your text here',
+    validators = [DataRequired(),Length(min=1)] )
+
+    submit = SubmitField("Search PII")

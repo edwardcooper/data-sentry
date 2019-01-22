@@ -12,7 +12,8 @@
     {% block navbar %}
     <a class="nav-link" href="{{ url_for('home_page')}}">Home</a>
     <a class="nav-link active" href="{{ url_for('API_page')}}">API documentation</a>
-    <a class="nav-link" href="{{url_for('Login_page')}}">Register/Login</a>
+    <a class="nav-link " href="{{url_for('Login_page')}}">Login</a>
+    <a class="nav-link" href="{{url_for('Register_page')}}">Register</a>
     {% endblock navbar%}
 
     {% block content %}

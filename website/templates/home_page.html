@@ -11,24 +11,34 @@
     {% block navbar %}
     <a class="nav-link active" href="{{ url_for('home_page')}}">Home</a>
     <a class="nav-link" href="{{ url_for('API_page')}}">API documentation</a>
-    <a class="nav-link" href="{{url_for('Login_page')}}">Register/Login</a>
+    <a class="nav-link" href="{{url_for('Login_page')}}">Login</a>
+    <a class="nav-link" href="{{url_for('Register_page')}}">Register</a>
     {% endblock navbar%}
 
 
     {% block content %}
-    <div class="form-horizontal">
-    <div class="form-group">
-        <div class="col-md-6">
-            <textarea class="form-control" rows="3" placeholder="Enter your text here" required></textarea>
-        </div>
-    </div>
-</div>
-<button type="submit" class="btn btn-primary btn-lg">Search PII</button>
+    <legend class = "mb-4">Enter your text below to search for PII</legend>
+    <form class="form-group mb-4 " action="" method="POST">
+        <fieldset>
+          <div class="form-group">
+          {{ form.text(class = "form-control") }}
+          </div>
+        </fieldset>
 
-<form class="form-inline mt-2 mt-md-0" action="/" method="POST">
-  <input type="text"  name="user_input_text" aria-label="Search">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ask</button>
-</form>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+
+    <table border = 1>
+
+<!-- <p><strong>How can I track my order?</strong></p> -->
+
+<!-- 
+    <p><strong>{{  output }}</p></strong><br></br> -->
+
+
 
 
 

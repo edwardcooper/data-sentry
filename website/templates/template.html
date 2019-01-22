@@ -24,7 +24,7 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+    <!-- <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet"> -->
 
   </head>
   <body class="text-center" data-gr-c-s-loaded="true">
@@ -33,6 +33,7 @@
     <div class="inner">
       <h3 class="masthead-brand">PII Sentry</h3>
       <nav class="nav nav-masthead justify-content-center">
+        <!-- for the navigation bar -->
         {% block navbar%}
 
         {% endblock navbar%}
@@ -43,6 +44,8 @@
   <main role="main" class="inner cover">
 
     <p class="lead">
+
+      <!-- Flash message formatting for login/register  -->
       {% with register_message = get_flashed_messages(with_categories = true) %}
       {% if register_message %}
           {% for category, message in register_message %}
@@ -53,9 +56,12 @@
       {% endif %}
       {% endwith %}
 
+      <!-- All the content for different page goes here. -->
       {% block content %}
-      
+
       {% endblock content%}
+      <!-- All the content for different page goes here. -->
+
     </p>
   </main>
 
