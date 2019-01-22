@@ -41,9 +41,20 @@
   </header>
 
   <main role="main" class="inner cover">
-    
+
     <p class="lead">
+      {% with register_message = get_flashed_messages(with_categories = true) %}
+      {% if register_message %}
+          {% for category, message in register_message %}
+          <div class="alert alert-{{category}}">
+            {{ message }}
+          </div>
+          {%endfor%}
+      {% endif %}
+      {% endwith %}
+
       {% block content %}
+      
       {% endblock content%}
     </p>
   </main>
