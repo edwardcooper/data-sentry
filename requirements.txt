@@ -1,6 +1,6 @@
 apturl==0.5.2
 asn1crypto==0.24.0
-bleach==3.1.0
+bleach==3.1.4
 boto==2.49.0
 boto3==1.9.83
 botocore==1.12.83
