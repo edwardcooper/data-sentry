@@ -44,7 +44,7 @@ pexpect==4.2.1
 piidetect==0.0.0.2
 Pillow==5.1.0
 pkginfo==1.5.0.1
-protobuf==3.0.0
+protobuf==3.18.3
 pycairo==1.16.2
 pycrypto==2.6.1
 pycups==1.9.73
